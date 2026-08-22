@@ -29,6 +29,52 @@ more — with nothing stored unless you choose to share it.
 - Tailwind for styling, `next/og` for the share-card image
 - Upstash Redis (with in-memory fallback) for rate limiting and leaderboard storage
 
+
+## Roadmap
+
+### Core Features
+
+* [x] GitHub OAuth authentication
+* [x] Current and longest streak tracking
+* [x] Custom contribution graph
+* [x] Language breakdown
+* [x] Top repositories analytics
+* [x] Dark mode
+* [x] Public shareable streak card
+* [x] User comparison
+* [x] Optional leaderboard
+
+### Coming Soon
+
+* [ ] Weekly and monthly streak insights
+* [ ] Streak milestones and achievements
+* [ ] GitHub README badge generation
+* [ ] Multiple share-card themes
+* [ ] Custom card colors and branding
+* [ ] Export stats as PNG/SVG
+* [ ] Repository contribution heatmaps
+* [ ] Organization contribution support
+* [ ] Friend system and streak challenges
+* [ ] Developer activity timeline
+* [ ] Public API
+* [ ] Discord integration
+* [ ] Slack integration
+* [ ] Mobile-responsive dashboard improvements
+* [ ] PWA support
+* [ ] Email notifications for streak risk
+* [ ] AI-powered contribution insights
+
+### Long-Term Vision
+
+* [ ] Cross-platform developer streaks (GitHub, GitLab, Bitbucket)
+* [ ] Team leaderboards
+* [ ] Open-source contribution scoring
+* [ ] Developer yearly wrapped
+* [ ] Custom profile widgets
+* [ ] Browser extension
+* [ ] Native mobile app
+
+
 ## Setup
 
 1. **Install dependencies**
