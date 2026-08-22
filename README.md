@@ -66,7 +66,7 @@ Two features are opt-in via env vars and degrade gracefully without them:
 - **Leaderboard** needs Upstash Redis. Without it, joining/leaving returns
   an error instead of silently doing nothing.
 
-## Before you publish this
+## How to add rate-limiting
 
 1. **Set up Upstash Redis.** Required for the leaderboard, and strongly
    recommended for rate limiting — the in-memory fallback only tracks
