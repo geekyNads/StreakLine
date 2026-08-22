@@ -3,6 +3,10 @@
 A minimal, secure GitHub streak & contribution viewer. Connect your GitHub
 account to see your streak, contribution graph, language breakdown, and
 more — with nothing stored unless you choose to share it.
+## Screenshots
+<img width="1465" height="881" alt="Screenshot 2026-08-22 at 6 47 31 PM" src="https://github.com/user-attachments/assets/6f21b5e1-946c-430c-9dd1-8b70c850ea53" />
+
+<img width="1470" height="884" alt="Screenshot 2026-08-22 at 6 47 40 PM" src="https://github.com/user-attachments/assets/f2900109-cb3a-4219-9d1e-9ce7ad44a0ef" />
 
 ## Features
 
