@@ -114,7 +114,6 @@ Two features are opt-in via env vars and degrade gracefully without them:
   (the one inline script — theme init — is allowlisted by exact SHA-256
   hash, not a blanket `unsafe-inline`), HSTS, no framing, disabled unused
   browser features.
-- **Errors are opaque to the client** — logged server-side only.
 - See `SECURITY.md` for the full data map and documented trade-offs.
 
 ## Project structure
