@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-hairline;
+  }
+  html {
+    color-scheme: light;
+  }
+  body {
+    @apply antialiased;
+  }
+  ::selection {
+    background: #cdeed3;
+  }
+  .dark ::selection {
+    background: #1f4d2a;
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.ink");
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    background: currentColor;
+    animation: blink 1.1s steps(1) infinite;
+    vertical-align: -0.1em;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .caret {
+      animation: none;
+    }
+  }
+}
