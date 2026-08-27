@@ -63,6 +63,7 @@ more — with nothing stored unless you choose to share it.
 * [ ] PWA support
 * [ ] Email notifications for streak risk
 * [ ] AI-powered contribution insights
+* [ ] adding a pull request history (all-time to keep track of open contributions)
 
 ### Long-Term Vision
 
