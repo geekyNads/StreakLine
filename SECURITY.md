@@ -17,6 +17,8 @@ For anyone auditing this before deploying it themselves:
 | `GITHUB_PUBLIC_DATA_TOKEN` (server-owned) | Environment variable only | Used solely for looking up *other* public GitHub users' public data (compare, share card). Give it zero scopes/permissions when you create it — see `.env.example` |
 | Leaderboard entries | Redis (Upstash), opt-in only | Username, current streak, avatar URL — all already public on the user's GitHub profile. Removed immediately on opt-out |
 | Contribution/streak data | Never persisted | Fetched fresh per request |
+| Email notification opt-ins | Redis (Upstash), opt-in only | Email address + GitHub username + a random unsubscribe token. Removed immediately on opt-out or via the one-click unsubscribe link in every reminder email |
+| `RESEND_API_KEY` / `CRON_SECRET` (server-owned) | Environment variable only | The cron job checks streak risk using `GITHUB_PUBLIC_DATA_TOKEN` (public data only) — it never touches a subscriber's personal OAuth token, because it doesn't need to and never stores one |
 
 ## Known trade-offs (by design, documented rather than hidden)
 

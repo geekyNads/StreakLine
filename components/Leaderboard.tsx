@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { usePolling } from "@/hooks/usePolling";
+import { LiveIndicator } from "@/components/LiveIndicator";
 
 type Entry = { login: string; streak: number; avatarUrl: string };
 
@@ -10,8 +12,11 @@ export function Leaderboard() {
   const [enabled, setEnabled] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<number | null>(null);
+  const [origin, setOrigin] = useState("");
+  const [copied, setCopied] = useState(false);
 
-  async function load() {
+  const load = useCallback(async () => {
     try {
       const res = await fetch("/api/leaderboard");
       const body = await res.json();
@@ -19,14 +24,21 @@ export function Leaderboard() {
       setEntries(body.entries);
       setOptedIn(body.optedIn);
       setEnabled(body.enabled ?? true);
+      setLastUpdated(Date.now());
+      setError(null);
     } catch (err) {
       setError((err as Error).message);
     }
-  }
+  }, []);
 
   useEffect(() => {
+    setOrigin(window.location.origin);
     load();
-  }, []);
+  }, [load]);
+
+  // Public data, cheap to read (no GitHub API call behind it) — a 1-minute
+  // live refresh keeps the list current without any manual reload.
+  usePolling(load, 60_000, enabled);
 
   async function toggle() {
     setBusy(true);
@@ -43,6 +55,12 @@ export function Leaderboard() {
     }
   }
 
+  async function copyEmbed() {
+    await navigator.clipboard.writeText(`![streakline leaderboard](${origin}/leaderboard-card)`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }
+
   if (!enabled) {
     return (
       <p className="text-xs text-graphite">
@@ -54,7 +72,7 @@ export function Leaderboard() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-xs text-graphite">
           Opt in to show your current streak, username, and avatar publicly on this list.
         </p>
@@ -70,19 +88,36 @@ export function Leaderboard() {
       {error && <p className="mt-3 font-mono text-xs text-graphite">{error}</p>}
 
       {entries && entries.length > 0 && (
-        <ol className="mt-4 divide-y divide-hairline font-mono text-sm dark:divide-white/10">
-          {entries.map((entry, i) => (
-            <li key={entry.login} className="flex items-center gap-3 py-2">
-              <span className="w-5 text-xs text-graphite">{i + 1}</span>
-              {entry.avatarUrl && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={entry.avatarUrl} alt="" width={20} height={20} className="rounded-full" />
-              )}
-              <span className="flex-1 truncate">@{entry.login}</span>
-              <span className="text-graphite">{entry.streak}d</span>
-            </li>
-          ))}
-        </ol>
+        <>
+          <div className="mt-4">
+            <LiveIndicator lastUpdated={lastUpdated} />
+          </div>
+          <ol className="mt-2 divide-y divide-hairline font-mono text-sm dark:divide-white/10">
+            {entries.map((entry, i) => (
+              <li key={entry.login} className="flex items-center gap-3 py-2">
+                <span className="w-5 text-xs text-graphite">{i + 1}</span>
+                {entry.avatarUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={entry.avatarUrl} alt="" width={20} height={20} className="rounded-full" />
+                )}
+                <span className="flex-1 truncate">@{entry.login}</span>
+                <span className="text-graphite">{entry.streak}d</span>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-4 flex items-center gap-3">
+            <code className="flex-1 truncate border border-hairline bg-hairline/30 px-2 py-1 font-mono text-xs dark:border-white/10 dark:bg-white/5">
+              ![streakline leaderboard]({origin}/leaderboard-card)
+            </code>
+            <button
+              onClick={copyEmbed}
+              className="shrink-0 font-mono text-xs text-graphite underline decoration-hairline underline-offset-4 hover:text-ink dark:hover:text-paper"
+            >
+              {copied ? "copied" : "copy"}
+            </button>
+          </div>
+        </>
       )}
 
       {entries && entries.length === 0 && (

@@ -12,7 +12,7 @@ export default async function Dashboard() {
   const login = (session.user as { login?: string } | undefined)?.login;
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-16">
+    <main className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
       <header className="flex items-center justify-between border-b border-hairline pb-6 dark:border-white/10">
         <div className="flex items-center gap-3">
           {session.user?.image && (

@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { IBM_Plex_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 const mono = IBM_Plex_Mono({
   subsets: ["latin"],
@@ -19,7 +20,22 @@ const sans = Inter({
 export const metadata: Metadata = {
   title: "streakline — your GitHub streak, plainly",
   description: "Connect GitHub and see your commit streak and contribution graph. Nothing stored, nothing shared.",
-  robots: { index: true, follow: true }
+  robots: { index: true, follow: true },
+  manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" }
+    ],
+    apple: "/icon-192.png"
+  }
+};
+
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FAFAF7" },
+    { media: "(prefers-color-scheme: dark)", color: "#14171A" }
+  ]
 };
 
 // Reads the saved theme before first paint, so there's no flash of the
@@ -39,6 +55,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="bg-paper font-sans text-ink transition-colors dark:bg-ink dark:text-paper">
         <ThemeProvider>{children}</ThemeProvider>
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
