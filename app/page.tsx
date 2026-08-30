@@ -9,7 +9,7 @@ export default async function Home() {
   if (session) redirect("/dashboard");
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-2xl flex-col justify-center px-6 py-24">
+    <main className="mx-auto flex min-h-screen max-w-2xl flex-col justify-center px-4 py-16 sm:px-6 sm:py-24">
       <div className="flex items-center justify-between">
         <p className="font-mono text-xs uppercase tracking-tightest text-graphite">streakline</p>
         <ThemeToggle />
@@ -47,6 +47,13 @@ export default async function Home() {
           <dd className="mt-1">Your GitHub token never reaches the browser.</dd>
         </div>
       </dl>
+
+      <a
+        href="/changelog"
+        className="mt-8 font-mono text-xs text-graphite underline decoration-hairline underline-offset-4 hover:text-ink dark:hover:text-paper"
+      >
+        project changelog →
+      </a>
     </main>
   );
 }
