@@ -3,29 +3,22 @@
 A minimal, secure GitHub streak & contribution viewer. Connect your GitHub
 account to see your streak, contribution graph, language breakdown, and
 more — with nothing stored unless you choose to share it.
+## Screenshots
+<img width="1465" height="881" alt="Screenshot 2026-08-22 at 6 47 31 PM" src="https://github.com/user-attachments/assets/6f21b5e1-946c-430c-9dd1-8b70c850ea53" />
+
+<img width="1470" height="884" alt="Screenshot 2026-08-22 at 6 47 40 PM" src="https://github.com/user-attachments/assets/f2900109-cb3a-4219-9d1e-9ce7ad44a0ef" />
 
 ## Features
 
-- Current streak, longest streak, and a self-drawn contribution graph —
-  refreshes in the background every 2 minutes while the dashboard is open,
-  no manual reload needed
+- Current streak, longest streak, and a self-drawn contribution graph
 - Optional "grace day" tolerance so one missed day doesn't zero out a streak
   (stored only in your browser, opt-in)
-- Streak-length-over-time chart, weekly trend, and monthly insights
-- Streak milestones (1 week → 1 year), derived from data already fetched
-- Language and repository-activity breakdown, derived from your commit activity
-- A public, shareable streak card (PNG) with theme presets and custom colors,
-  plus a small embeddable SVG badge — both cache-controlled so a README
-  embed actually reflects a live streak, not a stale snapshot
-- A public leaderboard image (PNG) for README embedding, refreshed every 10
-  minutes — same theming, no GitHub API call behind it since leaderboard
-  data is already stored opt-in
+- Streak-length-over-time chart
+- Language and top-repo breakdown, derived from your commit activity
+- A public, shareable streak card (PNG) you can embed in a GitHub README
 - Compare your streak against any public GitHub username
-- An opt-in public leaderboard, live on the dashboard (background refresh
-  every minute, paused when the tab isn't visible)
-- Optional email reminder when your streak hasn't been logged yet today
-  (checks public contribution data only — never stores your GitHub token)
-- Dark mode, installable as a PWA
+- An opt-in public leaderboard
+- Dark mode
 - Two-tier rate limiting so the app can't be turned into a free proxy for
   hammering GitHub's API
 
@@ -34,8 +27,52 @@ more — with nothing stored unless you choose to share it.
 - Next.js 14 (App Router) + TypeScript
 - NextAuth.js for GitHub OAuth
 - Tailwind for styling, `next/og` for the share-card image
-- Upstash Redis (with in-memory fallback) for rate limiting, leaderboard, and notification storage
-- Resend for email, Vercel Cron for the daily streak-risk check
+- Upstash Redis (with in-memory fallback) for rate limiting and leaderboard storage
+
+
+## Roadmap
+
+### Core Features
+
+* [x] GitHub OAuth authentication
+* [x] Current and longest streak tracking
+* [x] Custom contribution graph
+* [x] Language breakdown
+* [x] Top repositories analytics
+* [x] Dark mode
+* [x] Public shareable streak card
+* [x] User comparison
+* [x] Optional leaderboard
+
+### Coming Soon
+
+* [ ] Weekly and monthly streak insights
+* [ ] Streak milestones and achievements
+* [x] GitHub README badge generation
+* [ ] Multiple share-card themes
+* [x] Custom card colors and branding
+* [ ] Export stats as PNG/SVG
+* [ ] Repository contribution heatmaps
+* [ ] Organization contribution support
+* [ ] Friend system and streak challenges
+* [x] Developer activity timeline
+* [ ] Public API
+* [ ] Discord integration
+* [ ] Slack integration
+* [ ] Mobile-responsive dashboard improvements
+* [ ] PWA support
+* [ ] Email notifications for streak risk
+* [ ] AI-powered contribution insights
+* [ ] adding a pull request history (all-time to keep track of open contributions)
+
+### Long-Term Vision
+
+* [ ] Team leaderboards
+* [ ] Open-source contribution scoring
+* [ ] Developer yearly wrapped
+* [ ] Custom profile widgets
+* [ ] Browser extension
+
 
 ## Setup
 
@@ -54,8 +91,8 @@ more — with nothing stored unless you choose to share it.
 
 3. **Copy `.env.example` to `.env.local`** and fill in the required values
    (see comments in that file for each one — GitHub OAuth credentials and
-   `NEXTAUTH_SECRET` are required; everything else is an optional feature
-   flag, see below).
+   `NEXTAUTH_SECRET` are required; the public-data token and Upstash Redis
+   are optional locally, but see below before you deploy).
 
 4. **Run it**
 
@@ -65,17 +102,16 @@ more — with nothing stored unless you choose to share it.
 
 ## Feature flags via environment variables
 
-Every optional feature degrades gracefully without its env vars — the UI
-hides or returns a clear "not configured" response instead of crashing:
+Two features are opt-in via env vars and degrade gracefully without them:
 
-- **Compare + shareable card + badge** need `GITHUB_PUBLIC_DATA_TOKEN` (a
-  zero-permission personal access token — see `.env.example`).
-- **Leaderboard** needs Upstash Redis.
-- **Email notifications** need `RESEND_API_KEY`, `NOTIFY_FROM_EMAIL`, Upstash
-  Redis (for storing opt-ins), and `CRON_SECRET` (for the scheduled check
-  defined in `vercel.json`) — see `.env.example` for the full setup.
+- **Compare + shareable card** need `GITHUB_PUBLIC_DATA_TOKEN` (a
+  zero-permission personal access token — see `.env.example`). Without it,
+  those two routes return a clear "not configured" response instead of a
+  crash.
+- **Leaderboard** needs Upstash Redis. Without it, joining/leaving returns
+  an error instead of silently doing nothing.
 
-## Before you publish this
+## How to add rate-limiting
 
 1. **Set up Upstash Redis.** Required for the leaderboard, and strongly
    recommended for rate limiting — the in-memory fallback only tracks
@@ -127,7 +163,6 @@ hides or returns a clear "not configured" response instead of crashing:
   (the one inline script — theme init — is allowlisted by exact SHA-256
   hash, not a blanket `unsafe-inline`), HSTS, no framing, disabled unused
   browser features.
-- **Errors are opaque to the client** — logged server-side only.
 - See `SECURITY.md` for the full data map and documented trade-offs.
 
 ## Project structure
