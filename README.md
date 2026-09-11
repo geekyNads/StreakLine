@@ -46,15 +46,15 @@ more — with nothing stored unless you choose to share it.
 
 ### Coming Soon
 
-* [ ] Weekly and monthly streak insights
-* [ ] Streak milestones and achievements
+* [x] Weekly and monthly streak insights
+* [x] Streak milestones and achievements
 * [x] GitHub README badge generation
-* [ ] Multiple share-card themes
+* [x] Multiple share-card themes
 * [x] Custom card colors and branding
-* [ ] Export stats as PNG/SVG
-* [ ] Repository contribution heatmaps
+* [x] Export stats as PNG/SVG
+* [x] Repository contribution heatmaps
 * [ ] Organization contribution support
-* [ ] Friend system and streak challenges
+* [x] Friend system and streak challenges
 * [x] Developer activity timeline
 * [ ] Public API
 * [ ] Discord integration
@@ -67,10 +67,9 @@ more — with nothing stored unless you choose to share it.
 
 ### Long-Term Vision
 
-* [ ] Team leaderboards
+* [x] Team leaderboards
 * [ ] Open-source contribution scoring
 * [ ] Developer yearly wrapped
-* [ ] Custom profile widgets
 * [ ] Browser extension
 
 
