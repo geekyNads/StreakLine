@@ -1,4 +1,4 @@
-# streakline
+# streakline (not maintaining)
 
 A minimal, secure GitHub streak & contribution viewer. Connect your GitHub
 account to see your streak, contribution graph, language breakdown, and
