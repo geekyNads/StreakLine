@@ -59,20 +59,13 @@ more — with nothing stored unless you choose to share it.
 * [x] Friend system and streak challenges
 * [x] Developer activity timeline
 * [ ] Public API
-* [ ] Discord integration
-* [ ] Slack integration
-* [ ] Mobile-responsive dashboard improvements
-* [ ] PWA support
-* [ ] Email notifications for streak risk
 * [ ] AI-powered contribution insights
 * [ ] adding a pull request history (all-time to keep track of open contributions)
 
 ### Long-Term Vision
 
 * [x] Team leaderboards
-* [ ] Open-source contribution scoring
-* [ ] Developer yearly wrapped
-* [ ] Browser extension
+
 
 
 ## Setup
