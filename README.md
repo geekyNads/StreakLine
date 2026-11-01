@@ -1,5 +1,7 @@
 # streakline (not maintaining)
 
+built just to learn about github auth APIs
+
 A minimal, secure GitHub streak & contribution viewer. Connect your GitHub
 account to see your streak, contribution graph, language breakdown, and
 more — with nothing stored unless you choose to share it.
